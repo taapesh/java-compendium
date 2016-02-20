@@ -1,25 +1,19 @@
 public class MyLinkedList<T> {
     private int size;
-    public Node head;
-    public Node tail;
-
-
-    public MyLinkedList() {
-
-    }
+    public Node<T> head;
+    public Node<T> tail;
 
     private static class Node<T> {
-        Node next;
-        T data;
+        private T data;
+        private Node<T> next;
 
         private Node(T data) {
-            next = null;
             this.data = data;
         }
     }
 
     public void append(T data) {
-        Node node = new Node(data);
+        Node<T> node = new Node<>(data);
 
         if (head == null) {
             head = node;
@@ -37,7 +31,7 @@ public class MyLinkedList<T> {
             return;
         }
 
-        Node node = new Node(data);
+        Node<T> node = new Node<>(data);
 
         if (index == 0) {
             node.next = head;
@@ -48,7 +42,7 @@ public class MyLinkedList<T> {
                 tail = node;
             }
         } else {
-            Node current = head;
+            Node<T> current = head;
             for(int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
@@ -63,7 +57,7 @@ public class MyLinkedList<T> {
             return null;
         }
 
-        Node current = head;
+        Node<T> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
@@ -85,7 +79,7 @@ public class MyLinkedList<T> {
             return false;
         }
 
-        Node current = head;
+        Node<T> current = head;
         int currIdx = 0;
 
         while (currIdx < index - 1) {
@@ -124,4 +118,3 @@ public class MyLinkedList<T> {
         tail.next = head;
     }
 }
-
