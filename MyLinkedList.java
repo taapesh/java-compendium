@@ -1,4 +1,4 @@
-public class MyLinkedList {
+public class MyLinkedList<T> {
     private int size;
     public Node head;
     public Node tail;
@@ -8,17 +8,17 @@ public class MyLinkedList {
 
     }
 
-    private static class Node {
+    private static class Node<T> {
         Node next;
-        Object data;
+        T data;
 
-        private Node(Object o) {
+        private Node(T data) {
             next = null;
-            data = o;
+            this.data = data;
         }
     }
 
-    public void append(Object data) {
+    public void append(T data) {
         Node node = new Node(data);
 
         if (head == null) {
@@ -32,7 +32,7 @@ public class MyLinkedList {
     }
 
     @SuppressWarnings("unused")
-    public void insert(Object data, int index) {
+    public void insert(T data, int index) {
         if (index < 0 || index > size - 1) {
             return;
         }
@@ -58,7 +58,7 @@ public class MyLinkedList {
         }
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index > size - 1 || head == null) {
             return null;
         }
@@ -70,12 +70,12 @@ public class MyLinkedList {
         return current.data;
     }
 
-    public Object getLast() {
+    public T getLast() {
         return (tail != null) ? tail.data : null;
     }
 
     @SuppressWarnings("unused")
-    public Object getLastNode() {
+    public Node getLastNode() {
         return tail;
     }
 
