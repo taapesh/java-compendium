@@ -25,7 +25,6 @@ public class MyLinkedList<T> {
         size++;
     }
 
-    @SuppressWarnings("unused")
     public void insert(T data, int index) {
         if (index < 0 || index > size - 1) {
             return;
@@ -68,12 +67,10 @@ public class MyLinkedList<T> {
         return (tail != null) ? tail.data : null;
     }
 
-    @SuppressWarnings("unused")
     public Node getLastNode() {
         return tail;
     }
 
-    @SuppressWarnings("unused")
     public boolean remove(int index) {
         if (index < 0 || index > size - 1 || head == null) {
             return false;
