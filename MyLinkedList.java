@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class MyLinkedList {
     private int size;
     public Node head;
@@ -10,6 +8,16 @@ public class MyLinkedList {
 
     }
 
+    private static class Node {
+        Node next;
+        Object data;
+
+        private Node(Object o) {
+            next = null;
+            data = o;
+        }
+    }
+
     public void append(Object data) {
         Node node = new Node(data);
 
@@ -17,12 +25,13 @@ public class MyLinkedList {
             head = node;
             tail = node;
         } else {
-            tail.setNext(node);
+            tail.next = node;
             tail = node;
         }
         size++;
     }
 
+    @SuppressWarnings("unused")
     public void insert(Object data, int index) {
         if (index < 0 || index > size - 1) {
             return;
@@ -31,7 +40,7 @@ public class MyLinkedList {
         Node node = new Node(data);
 
         if (index == 0) {
-            node.setNext(head);
+            node.next = head;
             head = node;
             size++;
 
@@ -41,10 +50,10 @@ public class MyLinkedList {
         } else {
             Node current = head;
             for(int i = 0; i < index - 1; i++) {
-                current = current.getNext();
+                current = current.next;
             }
-            node.setNext(current.getNext());
-            current.setNext(node);
+            node.next = current.next;
+            current.next = node;
             size++;
         }
     }
@@ -56,50 +65,42 @@ public class MyLinkedList {
 
         Node current = head;
         for (int i = 0; i < index; i++) {
-            current = current.getNext();
+            current = current.next;
         }
-        return current.getData();
+        return current.data;
     }
 
     public Object getLast() {
-        return (tail != null) ? tail.getData() : null;
+        return (tail != null) ? tail.data : null;
     }
 
+    @SuppressWarnings("unused")
     public Object getLastNode() {
         return tail;
     }
 
+    @SuppressWarnings("unused")
     public boolean remove(int index) {
         if (index < 0 || index > size - 1 || head == null) {
             return false;
         }
 
-        if (index == 0) {
-            Node next = head.getNext();
-            if (next != null) {
-                head = next;
-            } else {
-                head = null;
-            }
-            return true;
-        } else {
-            Node current = head;
-            int currIdx = 0;
+        Node current = head;
+        int currIdx = 0;
 
-            while(currIdx < index - 1) {
-                current = current.getNext();
-                currIdx++;
-            }
-
-            if (currIdx == size - 2) {
-                tail = current;
-                current.setNext(null);
-            } else {
-                current.setNext(current.getNext().getNext());
-            }
-            size--;
-            return true;
+        while (currIdx < index - 1) {
+            current = current.next;
+            currIdx++;
         }
+
+        if (currIdx == size - 2) {
+            // Set new tail
+            tail = current;
+        }
+
+        current.next = current.next.next;
+        size--;
+        return true;
     }
 
     public int size() {
@@ -112,46 +113,15 @@ public class MyLinkedList {
 
         while (current != null) {
             sb.append("[");
-            sb.append(current.getData().toString());
+            sb.append(current.data.toString());
             sb.append("]");
-            current = current.getNext();
+            current = current.next;
         }
         return sb.toString();
     }
 
     public void createLoop() {
-        tail.setNext(head);
-    }
-
-    class Node {
-        Node next;
-        Object data;
-
-        public Node(Object o) {
-            next = null;
-            data = o;
-        }
-
-        public Node(Object d, Node n) {
-            next = n;
-            data = d;
-        }
-
-        public Object getData() {
-            return data;
-        }
-
-        public void setData(Object d) {
-            data = d;
-        }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public void setNext(Node n) {
-            next = n;
-        }
+        tail.next = head;
     }
 }
 
