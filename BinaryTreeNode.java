@@ -1,4 +1,3 @@
-
 public class BinaryTreeNode {
     int value;
     public BinaryTreeNode left;
